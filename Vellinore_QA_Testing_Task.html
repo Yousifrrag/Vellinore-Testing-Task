@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vellinore — Product Fields & Website Testing Checklist</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            color: #1a1a1a;
+            background: #fff;
+            line-height: 1.8;
+            font-size: 11pt;
+        }
+
+        /* Cover Page */
+        .cover {
+            page-break-after: always;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            min-height: 100vh;
+            background: #2A251C; color: #FAF6EE; text-align: center; padding: 60px 40px;
+        }
+        .cover h1 { font-size: 40pt; font-weight: 300; letter-spacing: 0.15em; text-transform: uppercase; }
+        .cover .sub { font-size: 14pt; color: #C2A064; letter-spacing: 0.2em; text-transform: uppercase; margin: 10px 0 30px; }
+        .cover .line { width: 60px; height: 1px; background: #C2A064; margin: 25px auto; }
+        .cover .info { font-size: 10pt; color: #b0a896; line-height: 2.2; }
+        .cover .info b { color: #FAF6EE; }
+
+        .wrap { max-width: 800px; margin: 0 auto; padding: 30px 40px; }
+
+        h1.section {
+            font-size: 20pt; font-weight: 600; color: #2A251C;
+            margin: 45px 0 10px; padding-bottom: 8px; border-bottom: 3px solid #C2A064;
+            page-break-before: always;
+        }
+        h1.section:first-of-type { page-break-before: avoid; }
+        h2 { font-size: 14pt; font-weight: 600; color: #3d3528; margin: 28px 0 8px; }
+        h3 { font-size: 12pt; font-weight: 600; color: #5a5245; margin: 20px 0 6px; }
+        p { margin: 6px 0 10px; }
+
+        /* Tip / Note boxes */
+        .tip {
+            background: #f8f6f0; border-left: 4px solid #C2A064;
+            padding: 14px 18px; margin: 14px 0; border-radius: 0 6px 6px 0;
+            font-size: 10pt;
+        }
+        .tip b { color: #2A251C; }
+        .warn {
+            background: #fff8e1; border-left: 4px solid #fd7e14;
+            padding: 14px 18px; margin: 14px 0; border-radius: 0 6px 6px 0;
+            font-size: 10pt;
+        }
+
+        /* Checklist items */
+        .check {
+            display: flex; align-items: flex-start; gap: 10px;
+            padding: 8px 0; border-bottom: 1px solid #f0ede7;
+        }
+        .check:last-child { border-bottom: none; }
+        .box {
+            flex-shrink: 0; width: 16px; height: 16px;
+            border: 2px solid #999; border-radius: 3px; margin-top: 5px;
+        }
+        .check-text { flex: 1; }
+
+        /* Priority tags */
+        .tag {
+            display: inline-block; padding: 2px 8px; border-radius: 4px;
+            font-size: 8pt; font-weight: 700; text-transform: uppercase; letter-spacing: 0.04em;
+            vertical-align: middle; margin-left: 6px;
+        }
+        .tag-must { background: #dc3545; color: #fff; }
+        .tag-should { background: #fd7e14; color: #fff; }
+        .tag-nice { background: #6c757d; color: #fff; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 10pt; }
+        th { background: #2A251C; color: #FAF6EE; padding: 10px 14px; text-align: left; font-size: 9pt; letter-spacing: 0.04em; }
+        td { padding: 10px 14px; border-bottom: 1px solid #e8e4dd; vertical-align: top; }
+        tr:nth-child(even) td { background: #faf9f6; }
+
+        .field { font-weight: 600; color: #8C6E3A; }
+
+        /* Footer */
+        .doc-footer {
+            text-align: center; padding: 50px 0; color: #999; font-size: 10pt;
+        }
+        .doc-footer .brand { font-size: 20pt; letter-spacing: 0.2em; color: #C2A064; font-weight: 300; }
+
+        @media print {
+            body { font-size: 10pt; }
+            .wrap { padding: 15px 25px; }
+            .cover { page-break-after: always; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+            h1.section { page-break-before: always; }
+            table, .check { page-break-inside: avoid; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════ COVER ══════════════ -->
+<div class="cover">
+    <h1>VELLINORE</h1>
+    <div class="sub">Testing Checklist</div>
+    <div class="line"></div>
+    <p style="font-size: 13pt; max-width: 500px; line-height: 1.9; margin-bottom: 35px;">
+        A simple, step-by-step testing guide for the team.<br>
+        Follow the steps and check the boxes.
+    </p>
+    <div class="line"></div>
+    <div class="info">
+        <b>Date:</b> July 12, 2026<br>
+        <b>Website:</b> https://vellinore-staging-34507362.dev.odoo.com<br>
+        <b>Status:</b> Ready for QA Review
+    </div>
+</div>
+
+<div class="wrap">
+
+<div class="tip">
+    <b>Testing Legend:</b><br>
+    <span class="tag tag-must">Must Test</span> — Critical features. If these break, the website cannot process orders.<br>
+    <span class="tag tag-should">Should Test</span> — Important design and usability features.<br>
+    <span class="tag tag-nice">Nice to Test</span> — Minor polish and visual enhancements.
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h1 class="section">Part A — Odoo Backend Product Fields (Vellinore Tab)</h1>
+
+<p>The <b>"Vellinore"</b> tab in Odoo backend contains custom fields that control the premium website layout. Fill them in backend and verify their website display:</p>
+
+<h2>1. Basic Product Info Group</h2>
+<table>
+    <tr><th>Field Name</th><th>Description / Example</th><th>Website Display & Behavior</th></tr>
+    <tr>
+        <td class="field">Fabric / Material Description</td>
+        <td>Composition (e.g. <em>"100% European linen"</em>)</td>
+        <td>Shows in the <b>Quick View popup</b> under the product title.</td>
+    </tr>
+    <tr>
+        <td class="field">Weight / Thread Strength</td>
+        <td>Fabric weight descriptor (e.g. <em>"320g/m²"</em>)</td>
+        <td>Stored in system for filtering and search.</td>
+    </tr>
+    <tr>
+        <td class="field">Origin</td>
+        <td>Material source (e.g. <em>"Scotland"</em>)</td>
+        <td>Stored in system for filtering and search.</td>
+    </tr>
+    <tr>
+        <td class="field">Exclusivity Badge</td>
+        <td>Tag label (e.g. <em>"Limited"</em> or <em>"Inner Circle"</em>)</td>
+        <td>Shows as a gold badge on the <b>top-right corner</b> of product grid cards and inside Quick View. Hides if empty.</td>
+    </tr>
+    <tr>
+        <td class="field">Fit Scale (1–5)</td>
+        <td>Numeric scale for fit tight-to-loose range.</td>
+        <td>Stored in system for filtering.</td>
+    </tr>
+    <tr>
+        <td class="field">Fit Details</td>
+        <td>Sizing text (e.g. <em>"Our model is 186 cm and wears size M."</em>)</td>
+        <td>Stored in system.</td>
+    </tr>
+    <tr>
+        <td class="field">Fit Type</td>
+        <td>Selection: <b>Slim Fit</b>, <b>Regular Fit</b>, or <b>Oversized</b>.</td>
+        <td>Shows a visual <b>fit bar</b> on the product detail page:
+            <ul>
+                <li><b>Slim:</b> dot at left + "Fällt schmal aus"</li>
+                <li><b>Regular:</b> dot at middle + "Fällt normal aus"</li>
+                <li><b>Oversized:</b> dot at right + "Weit geschnitten"</li>
+            </ul>
+            Hides completely if left unselected.
+        </td>
+    </tr>
+</table>
+
+<h2>2. Material Details Group</h2>
+<table>
+    <tr><th>Field Name</th><th>Example Value</th><th>Website Display & Behavior</th></tr>
+    <tr>
+        <td class="field">Weight</td>
+        <td><em>"300 g/m²"</em></td>
+        <td rowspan="3">Shows as a neat horizontal stats row under the fit bar:<br><br>
+            <b>Gewicht</b> (Weight) · <b>Herkunft</b> (Origin) · <b>Pflege</b> (Care)<br><br>
+            Columns hide automatically if empty. The entire row hides if all three are empty.
+        </td>
+    </tr>
+    <tr>
+        <td class="field">Origin</td>
+        <td><em>"Biella, Italy"</em></td>
+    </tr>
+    <tr>
+        <td class="field">Care</td>
+        <td><em>"Dry cleaning"</em></td>
+    </tr>
+</table>
+
+<h2>3. Accordion Content Group</h2>
+<table>
+    <tr><th>Field Name</th><th>Content Style</th><th>Website Display & Behavior</th></tr>
+    <tr>
+        <td class="field">Material & Care</td>
+        <td>Rich HTML / Text</td>
+        <td>Expandable accordion section titled <b>"Material & Pflege"</b> on the product page. Hides if empty.</td>
+    </tr>
+    <tr>
+        <td class="field">Details & Fit</td>
+        <td>Rich HTML / Text</td>
+        <td>Expandable accordion section titled <b>"Details & Passform"</b> on the product page. Hides if empty.</td>
+    </tr>
+    <tr>
+        <td class="field">Shipping & Returns</td>
+        <td>Rich HTML / Text</td>
+        <td>Expandable accordion section titled <b>"Versand & Rückgabe (DHL)"</b> on the product page. Hides if empty.</td>
+    </tr>
+</table>
+
+<h2>4. Garment Type Group</h2>
+<table>
+    <tr><th>Field Name</th><th>Selection Options</th><th>Website Display & Behavior</th></tr>
+    <tr>
+        <td class="field">Garment Type</td>
+        <td><b>Shirt</b>, <b>Pants</b>, or <b>Jacket</b></td>
+        <td>Pre-selects the correct tab (Shirt/Pants/Jacket) when opening the "Größenberater" (Size Guide) modal.</td>
+    </tr>
+</table>
+
+<h2>Monogram Data (Order Level)</h2>
+<p>When a user personalizes a product, the following details are attached to their order line:</p>
+<table>
+    <tr><th>Data Name</th><th>Stored Value</th><th>Visibility</th></tr>
+    <tr><td class="field">Monogramm Initialen</td><td>Up to 3 letters (e.g. "AB")</td><td rowspan="3">
+        <b>Cart:</b> Appears as <em>"Monogramm „AB" (Gold, Manschette)"</em> under the variant info.<br>
+        <b>Backend Odoo:</b> Visible as dedicated columns on the sales order line.
+    </td></tr>
+    <tr><td class="field">Monogramm Garnfarbe</td><td>Gold, Creme, or Espresso</td></tr>
+    <tr><td class="field">Monogramm Platzierung</td><td>Manschette, Brust, or Saum</td></tr>
+</table>
+
+<div class="warn">
+    <b>Important:</b> An item customized with a monogram and the same item without one must split into separate lines in the cart.
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h1 class="section">Part B — Website Page Testing Checklist</h1>
+
+<!-- ─── HOMEPAGE ─── -->
+<h2>1. Homepage (<code>/</code>) <span class="tag tag-must">Must Test</span></h2>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Hero video:</b> Video plays automatically in loop (no sound). Title "Die Eleganz der Stille" and CTAs load correctly.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Season cover:</b> Background image, "Stille am Wasser." text, and collection/lookbook links load.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Stück der Saison:</b> Displays the designated seasonal product dynamically from the database with current pricing.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Category grid:</b> 6 categories show with campaign photos. Links redirect correctly.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Shoppable Look:</b> lifestyle photo with active dots. Hovering/clicking dots displays correct product tooltips with price.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Material Macro & Craft:</b> Editorial layout images and text load with scroll-in animations.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Lookbook filmstrip:</b> Horizontal drag-scroll track loads 5 photos with labels.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Featured carousel:</b> swipeable product block loads live storefront products.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Stimmen (Testimonials):</b> 3 customer quotes appear with source details.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Trust strip:</b> 4 shipping/payment/return policy indicators display.</div></div>
+
+<!-- ─── SHOP ─── -->
+<h2>2. Shop Listing (<code>/shop</code>) <span class="tag tag-must">Must Test</span></h2>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Shop banner:</b> Header hero displays background photo and "Alle Stücke" title.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Toolbar:</b> "Filtern" sidebar triggers, and search bar filters products.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Product cards:</b> 3-column clean cards display image (3:4 ratio), category, name, and price with tax note.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Hover swap:</b> Card image switches to alternate photo on hover.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Quick view trigger:</b> "Schnellansicht" button appears on hover and opens modal.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Badges:</b> Exclusivity label shows on top-right of image, and price reduction shows original price crossed out.</div></div>
+
+<!-- ─── PRODUCT PAGE ─── -->
+<h2>3. Product Detail Page <span class="tag tag-must">Must Test</span></h2>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Media gallery:</b> Thumbnail strip on left scrolls/changes main image on right.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Attributes:</b> Color swatches and sizes work, updating price and image dynamically.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Size Guide:</b> "Größenberater" link opens popup. Choosing a garment type and entering dimensions calculates size. Clicking apply closes popup.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Fit bar & specs:</b> Visual slider dot and specs row match backend Odoo settings.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>CTA buttons:</b> "In den Warenkorb" slides cart open. "Direkt-Kauf" redirects to checkout.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Out of stock:</b> "Benachrichtigen" form shows when a variant is out of stock. Submitting details registers request in backend.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Accordions:</b> 3 expandable/collapsible details section toggle open/close.</div></div>
+
+<!-- ─── QUICK VIEW ─── -->
+<h2>4. Quick View Popup <span class="tag tag-must">Must Test</span></h2>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Launch:</b> Clicking quick view on shop card opens overlay correctly.</div></div>
+<div class="check"><div class="box"></div><div class="check-text"><b>Interaction:</b> Swatches change images, sizes activate buy buttons, and out-of-stock displays notify field.</div></div>
+<div class="check"><div class="box"></div><div class="check-text"><b>Wishlist:</b> Heart button adds/removes item to/from user selection.</div></div>
+
+<!-- ─── CART ─── -->
+<h2>5. Cart (Drawer & Page) <span class="tag tag-must">Must Test</span></h2>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Cart drawer:</b> Slides open from right, showing items, totals, checkout button.</div></div>
+<div class="check"><div class="box"></div><div class="check-text"><b>Cart page (<code>/shop/cart</code>):</b> shows item rows with quantity adjusters (+/−), remove button, and right summary column.</div></div>
+<div class="check"><div class="box"></div><div class="check-text"><b>Monogram line:</b> Monogram custom choices print under product name. Separates identical products with different monograms.</div></div>
+
+<!-- ─── CHECKOUT ─── -->
+<h2>6. Checkout & Confirmation <span class="tag tag-must">Must Test</span></h2>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Success page:</b> Displays checkmark, order number, thank you heading, and back-to-shop link.</div></div>
+
+<!-- ─── HEADER ─── -->
+<h2>7. Header & Navigation <span class="tag tag-must">Must Test</span></h2>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Mega menu:</b> Hovering parent menu links loads full-width column layout with campaign images.</div></div>
+<div class="check"><div class="box"></div><div class="check-text"><b>Konto:</b> Dropdown shows login/register options when logged out, and dashboard/logout options when logged in.</div></div>
+<div class="check"><div class="box"></div><div class="check-text"><b>Mobile Drawer:</b> Left drawer slides in on mobile. Hamburger links, sub-menus (+/−), and language switcher load correctly.</div></div>
+
+<!-- ─── FOOTER ─── -->
+<h2>8. Footer <span class="tag tag-should">Should Test</span></h2>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Sections:</b> Circular newsletter sign up, service badges, 4 columns of page links, payment marks, and copyright load.</div></div>
+
+<!-- ─── ACCOUNT ─── -->
+<h2>9. Portal Dashboard (<code>/my</code>) <span class="tag tag-should">Should Test</span></h2>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Tabs:</b> Übersicht (overview), Bestellungen (orders), Die Auswahl (wishlist), Adressen (addresses), and Einstellungen (profile settings) load and edit correctly.</div></div>
+
+<!-- ─── STATIC PAGES ─── -->
+<h2>10. Static Pages <span class="tag tag-should">Should Test</span></h2>
+<p>Ensure these load with proper editorial styling and layout:</p>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 15px 0;">
+    <div>☐ <b>Personalisierung</b> (<code>/personalisierung</code>)</div>
+    <div>☐ <b>Pflegehinweise</b> (<code>/pflege</code>)</div>
+    <div>☐ <b>Stoffführer</b> (<code>/stoffe</code>)</div>
+    <div>☐ <b>Lookbook</b> (<code>/lookbook</code>)</div>
+    <div>☐ <b>Über uns</b> (<code>/about</code>)</div>
+    <div>☐ <b>Journal</b> (<code>/journal</code>)</div>
+    <div>☐ <b>Impressum</b> (<code>/impressum</code>)</div>
+    <div>☐ <b>Datenschutz</b> (<code>/datenschutz</code>)</div>
+    <div>☐ <b>AGB</b> (<code>/agb</code>)</div>
+    <div>☐ <b>Widerruf</b> (<code>/widerruf</code>)</div>
+    <div>☐ <b>Versand</b> (<code>/versand</code>)</div>
+    <div>☐ <b>Größentabelle</b> (<code>/groessen</code>)</div>
+    <div>☐ <b>Bestellverfolgung</b> (<code>/verfolgung</code>)</div>
+    <div>☐ <b>Barrierefreiheit</b> (<code>/barrierefreiheit</code>)</div>
+    <div>☐ <b>Kontakt</b> (<code>/kontakt</code>) — Form submissions should create Odoo leads.</div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h1 class="section">Part C — Odoo Backend Systems</h1>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Size Mapping:</b> Go to <b>Website → Configuration → Size Mappings</b>. Seed tables should display measurement thresholds.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Stock Notifications:</b> Go to <b>Website → eCommerce → Stock Notifications</b>. Registered out-of-stock emails should save here.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Monogram orders:</b> Confirm monogram selections appear as custom columns on Sale Order lines.</div></div>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Restock trigger:</b> restock a variant (stock move quantity &gt; 0). Verify that an email gets sent and the record changes to "Notified".</div></div>
+
+<!-- ══════════════════════════════════════════════════════ -->
+<h1 class="section">Part D — Responsive, Browser & Language</h1>
+
+<div class="check"><div class="box"></div><div class="check-text"><b>Mobile check:</b> all grids wrap, columns collapse, and swipe actions work.</div></div>
+<div class="check"><div class="box"></div><div class="check-text"><b>Language check:</b> Switching site to EN or DE translates all system labels.</div></div>
+<div class="check"><div class="box"></div><div class="check-text"><b>General check:</b> No red console warnings, no broken links, and fonts load correctly.</div></div>
+
+<!-- ─── END ─── -->
+<div class="doc-footer">
+    <div class="brand">VELLINORE</div>
+    <p style="margin-top: 10px;">End of Testing Checklist</p>
+</div>
+
+</div>
+</body>
+</html>
